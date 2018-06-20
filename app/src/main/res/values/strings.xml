@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Inventory_App</string>
+
+    <string name="product_name"><font size="14">Product Name</font></string>
+    <string name="price"><font size="14">Price</font></string>
+    <string name="Quantity"><font size="14">Quantity</font></string>
+    <string name="supplier_name"><font size="14">Supplier Name</font></string>
+    <string name="Supplier_phone_number"><font size="14">Supplier phone number</font></string>
+    <string name="supplier_unknown">supplier_unknown</string>
+    <string name="supplier_one">supplier_one</string>
+    <string name="supplier_tow">supplier_tow</string>
+    <string name="supplier_three">supplier_three</string>
+    <string name="product_price">Price</string>
+    <string name="t_r">T.R</string>
+    <string name="quantity">Quantity</string>
+    <string name="suppliername">Supplier Name</string>
+    <string name="supplier_phone_number">Supplier phone number</string>
+    <string name="action_save">action_save</string>
+</resources>

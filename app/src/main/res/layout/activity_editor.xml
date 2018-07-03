@@ -42,7 +42,7 @@
             android:layout_weight="0.5"
             android:layout_height="match_parent"
             android:paddingTop="20dp"
-            android:text="@string/t_r"/>
+            android:text="@string/product_price_currency"/>
     </LinearLayout>
 
     <LinearLayout

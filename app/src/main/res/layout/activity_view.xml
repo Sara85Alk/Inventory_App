@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context="com.hazimfenjan.inventory_app.ViewActivity">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:layout_marginBottom="20dp"
+        android:text="@string/product_view"
+        android:textColor="@color/colorPrimary"
+        android:textSize="18sp"
+        android:layout_marginTop="10dp"/>
+
+    <LinearLayout style="@style/ActivityViewLinearLayoutsection1">
+
+        <TextView
+            style="@style/ProductViewTitleTextStyle"
+            android:text="@string/product_name" />
+
+        <TextView
+            android:id="@+id/product_name_view_text"
+            style="@style/ProductViewTitleTextStyle"/>
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/ListItemLinearLayoutsection1">
+
+        <TextView
+            style="@style/ProductViewTitleTextStyle"
+            android:text="@string/product_price" />
+
+        <LinearLayout style="@style/ListItemLinearLayoutsection2">
+
+            <TextView
+                android:id="@+id/product_price_view_text"
+                style="@style/ProductViewdetailStyle" />
+
+            <TextView
+                style="@style/CurrencyStyle"
+                android:layout_marginLeft="10dp"
+                android:text="@string/product_price_currency" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/ActivityViewLinearLayoutsection1">
+
+        <TextView
+            style="@style/ProductViewTitleTextStyle"
+            android:text="@string/quantity" />
+
+        <LinearLayout style="@style/ListItemLinearLayoutsection2"
+            android:layout_marginTop="5dp">
+
+            <Button
+                android:id="@+id/increase_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginRight="10dp"
+                android:background="@color/colorAccent"
+                android:text="@string/add"
+                android:textColor="#0F3B5F" />
+
+            <TextView
+                android:id="@+id/product_quantity_view_text"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:textStyle="bold"
+                android:textColor="#0F3B5F"
+                android:textSize="19sp"/>
+
+            <Button
+                android:id="@+id/decrease_button"
+                android:layout_width="30dp"
+                android:layout_height="30dp"
+                android:layout_marginLeft="10dp"
+                android:background="@color/colorAccent"
+                android:text="@string/min"
+                android:textColor="#0F3B5F" />
+        </LinearLayout>
+    </LinearLayout>
+
+    <LinearLayout style="@style/ActivityViewLinearLayoutsection1">
+
+        <TextView
+            style="@style/ProductViewTitleTextStyle"
+            android:text="@string/suppliername" />
+
+        <TextView
+            android:id="@+id/product_supplier_name_view_text"
+            android:layout_width="0dp"
+            android:layout_weight="1"
+            android:textStyle="bold"
+            android:textColor="#0F3B5F"
+            android:textSize="19sp"
+            android:layout_height="wrap_content" />
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/ActivityViewLinearLayoutsection1">
+        <TextView
+            style="@style/ProductViewTitleTextStyle"
+            android:text="@string/supplier_phone_number" />
+
+        <TextView
+            android:id="@+id/product_supplier_phone_number_view_text"
+            style="@style/ProductViewdetailStyle" />
+
+        <Button
+            android:id="@+id/phone_button"
+            android:layout_width="35dp"
+            android:layout_height="40dp"
+            android:background="@color/colorPrimary"
+            android:drawableLeft="@drawable/phone"
+            android:focusable="false" />
+        </LinearLayout>
+
+    <Button
+        android:id="@+id/delete_button"
+        style="@style/ActivityViewButtonStyle"
+        android:drawableLeft="@drawable/delete"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="center"
+        android:text="@string/delete" />
+
+</LinearLayout>

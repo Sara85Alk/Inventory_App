@@ -1,19 +1,64 @@
 <resources>
     <string name="app_name">Inventory_App</string>
 
-    <string name="product_name"><font size="14">Product Name</font></string>
-    <string name="price"><font size="14">Price</font></string>
-    <string name="Quantity"><font size="14">Quantity</font></string>
-    <string name="supplier_name"><font size="14">Supplier Name</font></string>
-    <string name="Supplier_phone_number"><font size="14">Supplier phone number</font></string>
+    <string name="product_name">Product name</string>
+    <string name="price">Price</string>
+    <string name="Quantity">Quantity</string>
+    <string name="Supplier_phone_number">Supplier phone number</string>
     <string name="supplier_unknown">supplier_unknown</string>
     <string name="supplier_one">supplier_one</string>
     <string name="supplier_tow">supplier_tow</string>
     <string name="supplier_three">supplier_three</string>
     <string name="product_price">Price</string>
-    <string name="t_r">T.R</string>
+    <string name="product_price_currency">T.R</string>
     <string name="quantity">Quantity</string>
     <string name="suppliername">Supplier Name</string>
     <string name="supplier_phone_number">Supplier phone number</string>
     <string name="action_save">action_save</string>
+
+    <!-- activity_inventory -->
+    <string name="empty_view_text">Get started by adding a product :)</string>
+    <string name="action_delete_all_products">Delete All Products</string>
+    <string name="delete_all_dialog_msg">Delete All these Products ?</string>
+    <!-- activity_editor -->
+    <string name="add_product">Add New Product</string>
+    <string name="edit_product">Edit Product</string>
+
+    <!-- activity_view -->
+    <string name="product_view">Product view Details</string>
+    <string name="delete_dialog_msg">Delete this Product?</string>
+    <string name="quantity_change_msg">Quantity was change</string>
+    <string name="quantity_finish_msg">Product was finish :( , buy another Product</string>
+
+    <!-- activity_view and activity_editor-->
+
+    <string name="insert_failed">Error with saving product</string>
+    <string name="insert_successful">Product saved successfully</string>
+
+    <string name="update_failed">Error with updating product</string>
+    <string name="update_successful">Product updated successfully</string>
+
+
+    <string name="deleted_all_products_message">rows deleted from product table</string>
+    <string name="delete">Delete</string>
+    <string name="cancel">Cancel</string>
+
+    <string name="delete_product_successful">Product deleted</string>
+    <string name="delete_product_failed">Error with deleting Product</string>
+
+    <string name="product_name_requires">Product name requires</string>
+    <string name="price_requires">Product price requires</string>
+    <string name="quantity_requires">Product quantity requires</string>
+    <string name="supplier_name_requires">Supplier Name requires select anything without unknown selection</string>
+    <string name="supplier_phone_requires">Supplier Phone requires</string>
+    <string name="unsaved_changes_dialog_msg">Discard your changes and quit editing?</string>
+    <string name="discard">Discard</string>
+    <string name="keep_editing">Keep Editing</string>
+    <string name="add">+</string>
+    <string name="min">-</string>
+    <string name="delete">Delete</string>
+    <string name="sale">Sale</string>
+    <string name="edit">Edit</string>
+
+
 </resources>

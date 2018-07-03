@@ -1,7 +1,15 @@
 package com.hazimfenjan.inventory_app;
 
+import android.app.AlertDialog;
+import android.app.LoaderManager;
 import android.content.ContentValues;
+import android.content.CursorLoader;
+import android.content.DialogInterface;
+import android.content.Intent;
+import android.content.Loader;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
 import android.support.v7.app.AppCompatActivity;
@@ -9,6 +17,7 @@ import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -19,7 +28,10 @@ import android.widget.Toast;
 import com.hazimfenjan.inventory_app.data.InventoryContract.InventoryEntry;
 import com.hazimfenjan.inventory_app.data.InventoryDbHelper;
 
-public class editorActivity extends AppCompatActivity {
+public class editorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
+
+    private static final int EXISTING_INVENTORY_LOADER = 0;
+    private Uri mCurrentProductUri;
 
     private EditText mProductNameEditText;
     private EditText mProductPriceEditText;
@@ -28,10 +40,33 @@ public class editorActivity extends AppCompatActivity {
     private EditText mProductSupplierPhoneNumberEditText;
 
     private int mSupplieName = InventoryEntry.SUPPLIER_UNKNOWN;
+    private boolean mProductHasChanged = false;
+
+    private View.OnTouchListener mTouchListener = new View.OnTouchListener() {
+        @Override
+        public boolean onTouch(View view, MotionEvent motionEvent) {
+            mProductHasChanged = true;
+            Log.d("message", "onTouch");
+
+            return false;
+        }
+    };
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_editor);
+
+        Intent intent = getIntent();
+        mCurrentProductUri = intent.getData();
+
+        if (mCurrentProductUri == null) {
+            setTitle(getString(R.string.add_product));
+            invalidateOptionsMenu();
+        } else {
+            setTitle(getString(R.string.edit_product));
+            getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
+        }
 
         mProductNameEditText = findViewById(R.id.product_name_edit_text);
         mProductPriceEditText = findViewById(R.id.price_edit_text);
@@ -73,47 +108,100 @@ public class editorActivity extends AppCompatActivity {
             }
         });
     }
-
-
-    private void insertProduct() {
+    private void saveProduct() {
         String productNameString = mProductNameEditText.getText().toString().trim();
-
         String productPriceString = mProductPriceEditText.getText().toString().trim();
-        int productPriceInteger = Integer.parseInt(productPriceString);
-
         String productQuantityString = mProductQuantityEditText.getText().toString().trim();
-        int productQuantityInteger = Integer.parseInt(productQuantityString);
-
         String productSupplierPhoneNumberString = mProductSupplierPhoneNumberEditText.getText().toString().trim();
-        int productSupplierPhoneNumberInteger = Integer.parseInt(productSupplierPhoneNumberString);
+        if (mCurrentProductUri == null) {
+            if (TextUtils.isEmpty(productNameString)) {
+                Toast.makeText(this, getString(R.string.product_name_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (TextUtils.isEmpty(productPriceString)) {
+                Toast.makeText(this, getString(R.string.price_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (TextUtils.isEmpty(productQuantityString)) {
+                Toast.makeText(this, getString(R.string.quantity_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (mSupplieName == InventoryEntry.SUPPLIER_UNKNOWN) {
+                Toast.makeText(this, getString(R.string.supplier_name_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (TextUtils.isEmpty(productSupplierPhoneNumberString)) {
+                Toast.makeText(this, getString(R.string.supplier_phone_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
 
-        InventoryDbHelper mDbHelper = new InventoryDbHelper(this);
-        SQLiteDatabase db = mDbHelper.getWritableDatabase();
+            ContentValues values = new ContentValues();
+
+            values.put(InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, productPriceString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, productQuantityString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, mSupplieName);
+            values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, productSupplierPhoneNumberString);
+
+            Uri newUri = getContentResolver().insert(InventoryEntry.CONTENT_URI, values);
+
+            if (newUri == null) {
+                Toast.makeText(this, getString(R.string.insert_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.insert_successful),
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }
+        }else{
+
+            if (TextUtils.isEmpty(productNameString)) {
+                Toast.makeText(this, getString(R.string.product_name_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (TextUtils.isEmpty(productPriceString)) {
+                Toast.makeText(this, getString(R.string.price_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (TextUtils.isEmpty(productQuantityString)) {
+                Toast.makeText(this, getString(R.string.quantity_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (mSupplieName == InventoryEntry.SUPPLIER_UNKNOWN) {
+                Toast.makeText(this, getString(R.string.supplier_name_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
+            if (TextUtils.isEmpty(productSupplierPhoneNumberString)) {
+                Toast.makeText(this, getString(R.string.supplier_phone_requires), Toast.LENGTH_SHORT).show();
+                return;
+            }
+
+            ContentValues values = new ContentValues();
+
+            values.put(InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, productPriceString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, productQuantityString);
+            values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, mSupplieName);
+            values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, productSupplierPhoneNumberString);
 
 
-        ContentValues values = new ContentValues();
-        values.put(InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);
-        values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, productPriceInteger);
-        values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, productQuantityInteger);
-        values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, mSupplieName);
-        values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, productSupplierPhoneNumberInteger);
+            int rowsAffected = getContentResolver().update(mCurrentProductUri, values, null, null);
+            if (rowsAffected == 0) {
+                Toast.makeText(this, getString(R.string.update_failed),
+                        Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(this, getString(R.string.update_successful),
+                        Toast.LENGTH_SHORT).show();
+                finish();
+            }
 
-        long newRowId = db.insert(InventoryEntry.TABLE_NAME, null, values);
-
-        if (newRowId == -1) {
-            Toast.makeText(this, "Error with saving product", Toast.LENGTH_SHORT).show();
-            Log.d("Error message", "Doesn't insert row on table");
-
-        } else {
-            Toast.makeText(this, "Product saved with row id: " + newRowId, Toast.LENGTH_SHORT).show();
-            Log.d("successfully message", "insert row on table");
         }
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.menu, menu);
-        Log.d("message", "open Add Activity");
+        Log.d("message", "open Editor Activity");
         return true;
     }
 
@@ -121,12 +209,126 @@ public class editorActivity extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
             case R.id.action_save:
-                insertProduct();
-                finish();
+                saveProduct();
+                return true;
             case android.R.id.home:
-                NavUtils.navigateUpFromSameTask(this);
+                if (!mProductHasChanged) {
+                    NavUtils.navigateUpFromSameTask(editorActivity.this);
+                    return true;
+                }
+                DialogInterface.OnClickListener discardButtonClickListener =
+                        new DialogInterface.OnClickListener() {
+                            @Override
+                            public void onClick(DialogInterface dialogInterface, int i) {
+                                NavUtils.navigateUpFromSameTask(editorActivity.this);
+                            }
+                        };
+                showUnsavedChangesDialog(discardButtonClickListener);
                 return true;
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (!mProductHasChanged) {
+            super.onBackPressed();
+            return;
+        }
+        DialogInterface.OnClickListener discardButtonClickListener =
+                new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialogInterface, int i) {
+                        finish();
+                    }
+                };
+
+        showUnsavedChangesDialog(discardButtonClickListener);
+    }
+
+    @Override
+    public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
+        String[] projection = {
+                InventoryEntry._ID,
+                InventoryEntry.COLUMN_PRODUCT_NAME,
+                InventoryEntry.COLUMN_PRODUCT_PRICE,
+                InventoryEntry.COLUMN_PRODUCT_QUANTITY,
+                InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME,
+                InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER
+        };
+        return new CursorLoader(this,
+                mCurrentProductUri,
+                projection,
+                null,
+                null,
+                null);
+    }
+
+    @Override
+    public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
+        if (cursor == null || cursor.getCount() < 1) {
+            return;
+        }
+        if (cursor.moveToFirst()) {
+            int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_NAME);
+            int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_PRICE);
+            int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_QUANTITY);
+            int supplierNameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
+            int supplierPhoneColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER);
+
+            String currentName = cursor.getString(nameColumnIndex);
+            int currentPrice = cursor.getInt(priceColumnIndex);
+            int currentQuantity = cursor.getInt(quantityColumnIndex);
+            int currentSupplierName = cursor.getInt(supplierNameColumnIndex);
+            int currentSupplierPhone = cursor.getInt(supplierPhoneColumnIndex);
+
+            mProductNameEditText.setText(currentName);
+            mProductPriceEditText.setText(Integer.toString(currentPrice));
+            mProductQuantityEditText.setText(Integer.toString(currentQuantity));
+            mProductSupplierPhoneNumberEditText.setText(Integer.toString(currentSupplierPhone));
+
+            switch (currentSupplierName) {
+                case InventoryEntry.SUPPLIER_ONE:
+                    mProductSupplierNameSpinner.setSelection(1);
+                    break;
+                case InventoryEntry.SUPPLIER_TOW:
+                    mProductSupplierNameSpinner.setSelection(2);
+                    break;
+                case InventoryEntry.SUPPLIER_THREE:
+                    mProductSupplierNameSpinner.setSelection(3);
+                    break;
+                default:
+                    mProductSupplierNameSpinner.setSelection(0);
+                    break;
+            }
+        }
+    }
+
+    @Override
+    public void onLoaderReset(Loader<Cursor> loader) {
+        mProductNameEditText.setText("");
+        mProductPriceEditText.setText("");
+        mProductQuantityEditText.setText("");
+        mProductSupplierPhoneNumberEditText.setText("");
+        mProductSupplierNameSpinner.setSelection(0);
+    }
+
+    private void showUnsavedChangesDialog(
+            DialogInterface.OnClickListener discardButtonClickListener) {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage(R.string.unsaved_changes_dialog_msg);
+        builder.setPositiveButton(R.string.discard, discardButtonClickListener);
+        builder.setNegativeButton(R.string.keep_editing, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+                if (dialog != null) {
+                    dialog.dismiss();
+                }
+            }
+        });
+
+        AlertDialog alertDialog = builder.create();
+        alertDialog.show();
+    }
+
+
 }

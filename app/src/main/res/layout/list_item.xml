@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout style="@style/ListItemLinearLayoutsection1">
+
+        <TextView
+            android:id="@+id/name_product_text_view"
+            style="@style/ListItemText"
+            android:layout_width="0dp"
+            android:layout_marginRight="16dp"
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimaryDark"
+            android:textSize="20sp"
+            tools:text="product name"
+            android:layout_marginEnd="16dp" />
+
+        <TextView
+            android:id="@+id/product_quantity_text_view"
+            style="@style/ListItemText"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:textColor="@color/colorPrimary"
+            tools:text="product quantity" />
+
+    </LinearLayout>
+
+    <LinearLayout style="@style/ListItemLinearLayoutsection1"
+        android:layout_marginTop="10dp"
+        android:layout_height="60dp"
+        android:layout_marginBottom="10dp">
+
+        <LinearLayout
+            style="@style/ListItemLinearLayoutsection2"
+            android:layout_width="match_parent">
+
+            <TextView
+                android:id="@+id/product_price_text_view"
+                style="@style/ListItemText"
+                android:layout_width="0dp"
+                android:layout_weight="2"
+                tools:text="product price" />
+
+            <LinearLayout style="@style/ListItemLinearLayoutsection2">
+
+                <Button
+                    android:id="@+id/sale_button"
+                    style="@style/ListItembuttonstyle"
+                    android:drawableLeft="@drawable/shoping"
+                    android:text="@string/sale"
+                    android:drawableStart="@drawable/shoping" />
+            </LinearLayout>
+
+            <LinearLayout
+                style="@style/ListItemLinearLayoutsection2"
+                android:layout_width="2dp"
+                android:layout_marginLeft="5dp"
+                android:layout_marginStart="5dp">
+
+                <Button
+                    android:id="@+id/edit_button"
+                    style="@style/ListItembuttonstyle"
+                    android:drawableLeft="@drawable/create"
+                    android:text="@string/edit"
+                    android:drawableStart="@drawable/create" />
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

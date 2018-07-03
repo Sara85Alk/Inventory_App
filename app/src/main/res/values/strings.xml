@@ -13,39 +13,25 @@
     <string name="product_price_currency">T.R</string>
     <string name="quantity">Quantity</string>
     <string name="suppliername">Supplier Name</string>
-    <string name="supplier_phone_number">Supplier phone number</string>
     <string name="action_save">action_save</string>
-
-    <!-- activity_inventory -->
     <string name="empty_view_text">Get started by adding a product :)</string>
     <string name="action_delete_all_products">Delete All Products</string>
     <string name="delete_all_dialog_msg">Delete All these Products ?</string>
-    <!-- activity_editor -->
     <string name="add_product">Add New Product</string>
     <string name="edit_product">Edit Product</string>
-
-    <!-- activity_view -->
     <string name="product_view">Product view Details</string>
     <string name="delete_dialog_msg">Delete this Product?</string>
     <string name="quantity_change_msg">Quantity was change</string>
-    <string name="quantity_finish_msg">Product was finish :( , buy another Product</string>
-
-    <!-- activity_view and activity_editor-->
-
+    <string name="quantity_finish_msg">Product was finish , buy another Product</string>
     <string name="insert_failed">Error with saving product</string>
     <string name="insert_successful">Product saved successfully</string>
-
     <string name="update_failed">Error with updating product</string>
     <string name="update_successful">Product updated successfully</string>
-
-
     <string name="deleted_all_products_message">rows deleted from product table</string>
     <string name="delete">Delete</string>
     <string name="cancel">Cancel</string>
-
     <string name="delete_product_successful">Product deleted</string>
     <string name="delete_product_failed">Error with deleting Product</string>
-
     <string name="product_name_requires">Product name requires</string>
     <string name="price_requires">Product price requires</string>
     <string name="quantity_requires">Product quantity requires</string>
@@ -56,9 +42,6 @@
     <string name="keep_editing">Keep Editing</string>
     <string name="add">+</string>
     <string name="min">-</string>
-    <string name="delete">Delete</string>
     <string name="sale">Sale</string>
     <string name="edit">Edit</string>
-
-
 </resources>

@@ -11,12 +11,12 @@
             android:id="@+id/name_product_text_view"
             style="@style/ListItemText"
             android:layout_width="0dp"
+            android:layout_marginEnd="16dp"
             android:layout_marginRight="16dp"
             android:layout_weight="1"
             android:textColor="@color/colorPrimaryDark"
             android:textSize="20sp"
-            tools:text="product name"
-            android:layout_marginEnd="16dp" />
+            tools:text="product name" />
 
         <TextView
             android:id="@+id/product_quantity_text_view"
@@ -29,10 +29,11 @@
 
     </LinearLayout>
 
-    <LinearLayout style="@style/ListItemLinearLayoutsection1"
-        android:layout_marginTop="10dp"
+    <LinearLayout
+        style="@style/ListItemLinearLayoutsection1"
         android:layout_height="60dp"
-        android:layout_marginBottom="10dp">
+        android:layout_marginBottom="10dp"
+        android:layout_marginTop="10dp">
 
         <LinearLayout
             style="@style/ListItemLinearLayoutsection2"
@@ -51,8 +52,8 @@
                     android:id="@+id/sale_button"
                     style="@style/ListItembuttonstyle"
                     android:drawableLeft="@drawable/shoping"
-                    android:text="@string/sale"
-                    android:drawableStart="@drawable/shoping" />
+                    android:drawableStart="@drawable/shoping"
+                    android:text="@string/sale" />
             </LinearLayout>
 
             <LinearLayout
@@ -65,8 +66,8 @@
                     android:id="@+id/edit_button"
                     style="@style/ListItembuttonstyle"
                     android:drawableLeft="@drawable/create"
-                    android:text="@string/edit"
-                    android:drawableStart="@drawable/create" />
+                    android:drawableStart="@drawable/create"
+                    android:text="@string/edit" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

@@ -91,6 +91,4 @@
         <item name="android:layout_height">match_parent</item>
         <item name="android:textColor">#fff</item>
     </style>
-
-
 </resources>

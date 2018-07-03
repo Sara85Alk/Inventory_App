@@ -8,7 +8,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.Loader;
 import android.database.Cursor;
-import android.database.sqlite.SQLiteDatabase;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.NavUtils;
@@ -26,7 +25,6 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.hazimfenjan.inventory_app.data.InventoryContract.InventoryEntry;
-import com.hazimfenjan.inventory_app.data.InventoryDbHelper;
 
 public class editorActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor> {
 
@@ -177,14 +175,11 @@ public class editorActivity extends AppCompatActivity implements LoaderManager.L
             }
 
             ContentValues values = new ContentValues();
-
             values.put(InventoryEntry.COLUMN_PRODUCT_NAME, productNameString);
             values.put(InventoryEntry.COLUMN_PRODUCT_PRICE, productPriceString);
             values.put(InventoryEntry.COLUMN_PRODUCT_QUANTITY, productQuantityString);
             values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME, mSupplieName);
             values.put(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER, productSupplierPhoneNumberString);
-
-
             int rowsAffected = getContentResolver().update(mCurrentProductUri, values, null, null);
             if (rowsAffected == 0) {
                 Toast.makeText(this, getString(R.string.update_failed),

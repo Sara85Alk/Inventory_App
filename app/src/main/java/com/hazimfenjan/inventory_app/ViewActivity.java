@@ -22,7 +22,6 @@ public class ViewActivity extends AppCompatActivity implements LoaderManager.Loa
 
     private static final int EXISTING_INVENTORY_LOADER = 0;
     private Uri mCurrentProductUri;
-
     private TextView mProductNameViewText;
     private TextView mProductPriceViewText;
     private TextView mProductQuantityViewText;
@@ -47,11 +46,8 @@ public class ViewActivity extends AppCompatActivity implements LoaderManager.Loa
         } else {
             getLoaderManager().initLoader(EXISTING_INVENTORY_LOADER, null, this);
         }
-
         Log.d("message", "onCreate ViewActivity");
-
     }
-
     @Override
     public Loader<Cursor> onCreateLoader(int i, Bundle bundle) {
         String[] projection = {
@@ -69,21 +65,18 @@ public class ViewActivity extends AppCompatActivity implements LoaderManager.Loa
                 null,
                 null);
     }
-
     @Override
     public void onLoadFinished(Loader<Cursor> loader, Cursor cursor) {
         if (cursor == null || cursor.getCount() < 1) {
             return;
         }
         if (cursor.moveToFirst()) {
-
             final int idColumnIndex = cursor.getColumnIndex(InventoryEntry._ID);
             int nameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_NAME);
             int priceColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_PRICE);
             int quantityColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_QUANTITY);
             int supplierNameColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_NAME);
             int supplierPhoneColumnIndex = cursor.getColumnIndex(InventoryEntry.COLUMN_PRODUCT_SUPPLIER_PHONE_NUMBER);
-
             String currentName = cursor.getString(nameColumnIndex);
             final int currentPrice = cursor.getInt(priceColumnIndex);
             final int currentQuantity = cursor.getInt(quantityColumnIndex);
@@ -94,7 +87,6 @@ public class ViewActivity extends AppCompatActivity implements LoaderManager.Loa
             mProductPriceViewText.setText(Integer.toString(currentPrice));
             mProductQuantityViewText.setText(Integer.toString(currentQuantity));
             mProductSupplierPhoneNumberViewText.setText(Integer.toString(currentSupplierPhone));
-
 
             switch (currentSupplierName) {
                 case InventoryEntry.SUPPLIER_ONE:
@@ -175,7 +167,6 @@ public class ViewActivity extends AppCompatActivity implements LoaderManager.Loa
         }
     }
 
-
     private void updateProduct(int productQuantity) {
         Log.d("message", "updateProduct at ViewActivity");
 
@@ -238,5 +229,4 @@ public class ViewActivity extends AppCompatActivity implements LoaderManager.Loa
         AlertDialog alertDialog = builder.create();
         alertDialog.show();
     }
-
 }

@@ -24,8 +24,6 @@ import android.widget.Toast;
 
 import com.hazimfenjan.inventory_app.data.InventoryContract.InventoryEntry;
 
-import com.hazimfenjan.inventory_app.data.InventoryDbHelper;
-
 public class MainActivity extends AppCompatActivity implements LoaderManager.LoaderCallbacks<Cursor>{
 
     private static final int INVENTORY_LOADER = 0;

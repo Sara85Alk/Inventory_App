@@ -6,6 +6,7 @@
     android:layout_height="match_parent"
     android:padding="14dp"
     tools:context="com.hazimfenjan.inventory_app.editorActivity">
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -83,7 +84,7 @@
         android:orientation="horizontal">
         <TextView
             style="@style/view_text_style"
-            android:text="@string/supplier_phone_number"/>
+            android:text="@string/Supplier_phone_number"/>
         <EditText
             android:id="@+id/supplier_phone_number_edit_text"
             android:layout_width="0dp"

@@ -105,7 +105,7 @@
     <LinearLayout style="@style/ActivityViewLinearLayoutsection1">
         <TextView
             style="@style/ProductViewTitleTextStyle"
-            android:text="@string/supplier_phone_number" />
+            android:text="@string/Supplier_phone_number" />
 
         <TextView
             android:id="@+id/product_supplier_phone_number_view_text"
